@@ -5,7 +5,6 @@ const fetchCountry = async (search) => {
     await fetch('https://restcountries.com/v3.1/all')
       .then((res) => res.json())
       .then((data) => (countryData = data));
-    alert('search === null');
   } else {
     await fetch('https://restcountries.com/v3.1/name/' + search)
       .then((res) => res.json())
