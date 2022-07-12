@@ -1,25 +1,35 @@
-let container = document.querySelector('.countries-container');
-let countryData;
+const container = document.querySelector('.countries-container');
+let input = document.querySelector('input[type=range]');
+console.log(input);
 
-const fetchCountry = async () => {
-  countryData = await fetch('https://restcountries.com/v3.1/all').then((res) => res.json());
+let countriesData;
+
+const fetchcountries = async () => {
+  await fetch('https://restcountries.com/v3.1/all')
+    .then((res) => res.json())
+    .then((data) => (countriesData = data));
+  console.log(countriesData);
 };
 
 const countriesDisplay = async () => {
-  await fetchCountry();
-  console.log(countryData);
+  await fetchcountries();
+  countriesData.length = rangeValue.value;
 
-  container.innerHTML = countryData
+  container.innerHTML = countriesData
     .map(
-      (country) =>
+      (countrie) =>
         `
           <div class='card'>
-            <img href='${country.flag}'
-            <h2>${country.name.common}</h2>
+            <img src='${countrie.flags.svg}'>
+            <h2>${countrie.translations.fra.common}</h2>
+            <h3>${countrie.capital}</h3>
+            <p>Population : ${countrie.population}</p>            
           </div>
         `
     )
     .join('');
 };
-console.log(container);
+
+input.addEventListener('change', () => countriesDisplay());
+
 countriesDisplay();
