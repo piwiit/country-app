@@ -1,6 +1,5 @@
 const container = document.querySelector('.countries-container');
 const input = document.querySelector('input[type=range]');
-
 let countriesData;
 
 const fetchcountries = async () => {
@@ -39,6 +38,10 @@ const descendingSort = () => {
   countriesData.sort((a, b) => b.population - a.population);
 };
 
+const alphabeticalSorting = () => {
+  countriesData.sort((a, b) => a.translations.fra.common.localeCompare(b.translations.fra.common));
+};
+
 minToMax.addEventListener('click', () => {
   ascendingSort();
   countriesDisplay();
@@ -49,10 +52,16 @@ maxToMin.addEventListener('click', () => {
   countriesDisplay();
 });
 
+alpha.addEventListener('click', () => {
+  alphabeticalSorting();
+  countriesDisplay();
+});
+
 input.addEventListener('change', () => {
   countriesDisplay();
   console.log(countriesData);
 });
+
 inputSearch.addEventListener('input', () => countriesDisplay());
 
 fetchcountries();
