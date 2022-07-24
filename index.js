@@ -18,7 +18,11 @@ const countriesDisplay = () => {
         `
           <div class='card'>
             <img src='${country.flags.svg}'>
-            <h2>${country.translations.fra.common}</h2>
+            <h2>${
+              country.translations.fra.common === undefined
+                ? 'Pas de capitale'
+                : country.translations.fra.common
+            }</h2>
             <h3>${country.capital}</h3>
             <p>Population : ${country.population.toLocaleString()} habitants</p>            
           </div>
@@ -31,8 +35,17 @@ const ascendingSort = () => {
   countriesData.sort((a, b) => a.population - b.population);
 };
 
+const descendingSort = () => {
+  countriesData.sort((a, b) => b.population - a.population);
+};
+
 minToMax.addEventListener('click', () => {
   ascendingSort();
+  countriesDisplay();
+});
+
+maxToMin.addEventListener('click', () => {
+  descendingSort();
   countriesDisplay();
 });
 
