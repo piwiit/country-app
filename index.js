@@ -7,8 +7,9 @@ const fetchcountries = async () => {
   countriesDisplay();
 };
 
-const countriesDisplay = () => {
+const countriesDisplay = (e) => {
   container.innerHTML = countriesData
+    .slice(1, e)
     .filter((country) =>
       country.translations.fra.common.toLowerCase().includes(inputSearch.value.toLowerCase())
     )
@@ -58,8 +59,8 @@ alpha.addEventListener('click', () => {
 });
 
 input.addEventListener('change', () => {
-  countriesDisplay();
-  console.log(countriesData);
+  let num = parseInt(input.value);
+  countriesDisplay(num + 1);
 });
 
 inputSearch.addEventListener('input', () => countriesDisplay());
